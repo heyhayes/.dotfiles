@@ -1,0 +1,46 @@
+[general]
+import = [
+    "~/.config/alacritty/catppuccin-mocha.toml"
+]
+
+[window]
+decorations = "Buttonless"
+blur = true
+opacity = 0.5
+option_as_alt = "OnlyLeft"
+
+[window.padding]
+x = 5
+y = 5
+
+
+[font]
+size = 16.0
+
+[font.normal]
+family = "Hack Nerd Font Mono"
+style="Regular"
+
+[font.bold]
+family = "Hack Nerd Font Mono"
+style="Bold"
+
+[font.italic]
+family = "Hack Nerd Font Mono"
+style="Italic"
+
+[font.bold_italic]
+family = "Hack Nerd Font Mono"
+style="Bold Italic"
+
+[font.offset]
+y = 22
+
+[font.glyph_offset] 
+y = 11
+
+[colors.vi_mode_cursor]
+text = "#94e2d5"
+
+[cursor.vi_mode_style]
+shape = "Beam"

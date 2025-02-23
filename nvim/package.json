@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "global": "^4.4.0",
+    "intelephense": "^1.12.6"
+  }
+}
