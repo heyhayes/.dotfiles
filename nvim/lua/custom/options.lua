@@ -33,3 +33,5 @@ opt.confirm = true
 opt.undofile = true
 opt.backup = true
 opt.backupdir:remove('.')
+
+opt.cursorline = true

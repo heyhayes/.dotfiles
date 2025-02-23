@@ -1,9 +1,18 @@
-local lazygit = {
-  floating = {
-    buf = -1,
-    win = -1
+local floatingTerms = {
+  lazygit = {
+    floating = {
+      buf = -1,
+      win = -1
+    },
+    job_id = -1
   },
-  job_id = -1
+  terminal = {
+    floating = {
+      buf = -1,
+      win = -1
+    },
+    job_id = -1
+  }
 }
 
 local function create_floating_window(opts)
@@ -37,27 +46,38 @@ local function create_floating_window(opts)
     width = win_width,
     height = win_height,
     style = 'minimal',
-    border = 'rounded',
+    border = 'none',
   })
 
   return { buf = buf, win = win }
 end
 
 vim.api.nvim_create_user_command("LazyGit", function()
-  if not vim.api.nvim_win_is_valid(lazygit.floating.win) then
-    lazygit.floating = create_floating_window { buf = lazygit.floating.buf }
-    if vim.bo[lazygit.floating.buf].buftype ~= "terminal" then
-      print("terminal")
+  if not vim.api.nvim_win_is_valid(floatingTerms.lazygit.floating.win) then
+    floatingTerms.lazygit.floating = create_floating_window { buf = floatingTerms.lazygit.floating.buf }
+    if vim.bo[floatingTerms.lazygit.floating.buf].buftype ~= "terminal" then
       vim.cmd.terminal()
-      lazygit.job_id = vim.bo[lazygit.floating.buf].channel
-      vim.api.nvim_chan_send(lazygit.job_id, "lazygit\r\n")
+      floatingTerms.lazygit.job_id = vim.bo[floatingTerms.lazygit.floating.buf].channel
+      vim.api.nvim_chan_send(floatingTerms.lazygit.job_id, "lazygit\r\n")
       vim.cmd("startinsert")
       vim.keymap.set("t", "q", function()
-        vim.api.nvim_buf_delete(lazygit.floating.buf, { force = true })
-        lazygit.floating.buf = -1
+        vim.api.nvim_buf_delete(floatingTerms.lazygit.floating.buf, { force = true })
+        floatingTerms.lazygit.floating.buf = -1
       end)
     end
   else
-    vim.api.nvim_win_hide(lazygit.floating.win)
+    vim.api.nvim_win_hide(floatingTerms.lazygit.floating.win)
+  end
+end, {})
+
+vim.api.nvim_create_user_command("Floaterm", function()
+  if not vim.api.nvim_win_is_valid(floatingTerms.terminal.floating.win) then
+    floatingTerms.terminal.floating = create_floating_window { buf = floatingTerms.terminal.floating.buf }
+    if vim.bo[floatingTerms.terminal.floating.buf].buftype ~= "terminal" then
+      vim.cmd.terminal()
+      vim.cmd("startinsert")
+    end
+  else
+    vim.api.nvim_win_hide(floatingTerms.terminal.floating.win)
   end
 end, {})

@@ -44,11 +44,31 @@ return {
     end)
     vim.keymap.set("n", "<leader>sp", function()
       require("telescope.builtin").find_files {
+        ---@diagnostic disable-next-line: param-type-mismatch
         cwd = vim.fs.joinpath(vim.fn.stdpath("data"), "lazy")
       }
     end)
     require('telescope').load_extension('fzf')
     require "config.telescope.multigrep".setup()
+
+    local colors = require("catppuccin.palettes").get_palette()
+    local TelescopeColor = {
+      TelescopeMatching = { fg = colors.flamingo },
+      TelescopeSelection = { fg = colors.text, bg = colors.surface2, bold = true },
+      TelescopePromptPrefix = { bg = colors.surface0 },
+      TelescopePromptNormal = { bg = colors.surface0 },
+      TelescopeResultsNormal = { bg = colors.mantle },
+      TelescopePreviewNormal = { bg = colors.mantle },
+      TelescopePromptBorder = { bg = colors.surface0, fg = colors.surface0 },
+      TelescopeResultsBorder = { bg = colors.mantle, fg = colors.mantle },
+      TelescopePreviewBorder = { bg = colors.mantle, fg = colors.mantle },
+      TelescopePromptTitle = { bg = colors.pink, fg = colors.mantle },
+      TelescopeResultsTitle = { fg = colors.mantle },
+      TelescopePreviewTitle = { bg = colors.green, fg = colors.mantle },
+    }
+    for hl, col in pairs(TelescopeColor) do
+      vim.api.nvim_set_hl(0, hl, col)
+    end
   end
 
 }

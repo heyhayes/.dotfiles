@@ -4,7 +4,6 @@ require("config.lazy")
 require("custom.options")
 require("custom.keymaps")
 
-
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = "Highlight when yanking test",
   group = vim.api.nvim_create_augroup("dmh_highlight-yank", { clear = true }),
