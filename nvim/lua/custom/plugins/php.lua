@@ -1,11 +1,10 @@
 return {
   {
-    'ricardoramirezr/blade-nav.nvim',
-    ft = { 'blade', 'php' },        -- optional, improves startup time
+    "ricardoramirezr/blade-nav.nvim",
+    ft = { "blade", "php" }, -- optional, improves startup time
     opts = {
       close_tag_on_complete = true, -- default: true
     },
-
   },
   {
     "adalessa/laravel.nvim",
@@ -20,12 +19,23 @@ return {
       { "<leader>la", ":Laravel artisan<cr>" },
       { "<leader>lr", ":Laravel routes<cr>" },
       { "<leader>lm", ":Laravel related<cr>" },
+      {
+        "gf",
+        function()
+          if require("laravel").app("gf").cursor_on_resource() then
+            return "<cmd>Laravel gf<CR>"
+          else
+            return "gf"
+          end
+        end,
+        noremap = false,
+        expr = true,
+      },
     },
     event = { "VeryLazy" },
     opts = {
-      lsp_server = 'intelephense'
+      lsp_server = "intelephense",
     },
     config = true,
-  }
-
+  },
 }

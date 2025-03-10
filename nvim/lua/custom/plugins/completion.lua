@@ -1,54 +1,49 @@
 return {
   {
-    'saghen/blink.compat',
-    version = '*',
+    "saghen/blink.compat",
+    version = "*",
     lazy = true,
     opts = {},
   },
   {
-    'saghen/blink.cmp',
-    dependencies = 'rafamadriz/friendly-snippets',
+    "saghen/blink.cmp",
+    dependencies = {
+      {
+        "L3MON4D3/LuaSnip",
+        version = "v2.*",
+        config = function()
+          require("luasnip/loaders/from_snipmate").lazy_load()
+        end,
+      },
+      "rafamadriz/friendly-snippets",
+    },
 
-    version = '*',
+    version = "*",
 
     ---@module 'blink.cmp'
     ---@type blink.cmp.Config
     opts = {
-      keymap = { preset = 'default' },
-
+      keymap = {
+        preset = "default",
+        ["C-k"] = { "show", "show_documentation", "hide_documentation" },
+        ["C-space"] = {},
+      },
+      cmdline = {
+        keymap = { preset = "super-tab" },
+      },
+      term = {
+        keymap = { preset = "super-tab" },
+      },
       appearance = {
         use_nvim_cmp_as_default = true,
-        nerd_font_variant = 'mono'
+        nerd_font_variant = "mono",
       },
-      signature = { enabled = true, window = { border = 'single' } },
-      -- ghost_text = { enabled = true },
+      signature = { enabled = true, window = { border = "none" } },
+      snippets = { preset = "luasnip" },
       sources = {
-        default = { 'lsp', 'path', 'snippets', 'buffer' },
+        default = { "lsp", "path", "snippets", "buffer" },
       },
-
-      -- documentation = { window = { border = 'single' } },
-
-
-      -- menu = {
-      -- border = 'single',
-      --   draw = {
-      --     components = {
-      --       kind_icon = {
-      --         ellipsis = false,
-      --         text = function(ctx)
-      --           local kind_icon, _, _ = require('mini.icons').get('lsp', ctx.kind)
-      --           return kind_icon
-      --         end,
-      --         -- Optionally, you may also use the highlights from mini.icons
-      --         highlight = function(ctx)
-      --           local _, hl, _ = require('mini.icons').get('lsp', ctx.kind)
-      --           return hl
-      --         end,
-      --       }
-      --     }
-      --   }
-      -- }
     },
-    opts_extend = { "sources.default" }
-  }
+    opts_extend = { "sources.default" },
+  },
 }
