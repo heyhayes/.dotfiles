@@ -3,6 +3,8 @@ export PATH=:$HOME/.local/bin:$PATH
 export PATH=:$HOME/.config/tmux/plugins/tmuxifier/bin:/opt/homebrew/opt/mysql@8.4/bin/:$HOME/software/emacs30/build/nextstep:$PATH
 export GOPATH=~/go
 export PATH=$PATH:$GOPATH/bin:~/software/lua-language-server/bin:~/software/nvim-macos-arm64/bin/
+export PATH=:$HOME/Library/Application\ Support/Herd/bin/:$PATH
+export PATH=:$HOME/scripts:$PATH
 export TMUXIFIER_LAYOUT_PATH="$HOME/.config/tmux/layouts"
 # eval "$(tmuxifier init -)"
 # Path to your oh-my-zsh installation.
@@ -217,3 +219,43 @@ bindkey '^R' history-incremental-search-backward
 
 export PATH="~/.config/herd-lite/bin:$PATH"
 export PHP_INI_SCAN_DIR="~/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
+
+
+# Herd injected PHP binary.
+export PATH="/Users/davidhayes/Library/Application Support/Herd/bin/":$PATH
+
+
+# Herd injected PHP 8.4 configuration.
+export HERD_PHP_84_INI_SCAN_DIR="/Users/davidhayes/Library/Application Support/Herd/config/php/84/"
+
+
+# Herd injected PHP 8.2 configuration.
+export HERD_PHP_82_INI_SCAN_DIR="/Users/davidhayes/Library/Application Support/Herd/config/php/82/"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
+export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+
+
+nvm_auto_use() {
+  local node_version="$(nvm version)"
+  local nvmrc_path="$(nvm_find_nvmrc)"
+
+  if [ -n "$nvmrc_path" ]; then
+    local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
+
+    if [ "$nvmrc_node_version" = "N/A" ]; then
+      nvm install
+    elif [ "$nvmrc_node_version" != "$node_version" ]; then
+      nvm use
+    fi
+  elif [ "$node_version" != "$(nvm version default)" ]; then
+    echo "Reverting to nvm default version"
+    nvm use default
+  fi
+}
+add-zsh-hook chpwd nvm_auto_use
+nvm_auto_use
+

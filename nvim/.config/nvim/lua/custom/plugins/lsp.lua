@@ -40,6 +40,7 @@ return {
           "shfmt",
           "stylua",
           "tailwindcss-language-server",
+          "ts_ls",
         },
       },
     },
@@ -104,24 +105,23 @@ return {
       jsonls = {},
       html = {},
       clangd = {},
+      ts_ls = {},
       intelephense = {
         root_dir = require("lspconfig").util.root_pattern(".git", "package.json"),
         filetypes = { "php", "blade", "php_only" },
         settings = {
           intelephense = {
+            environment = {
+              includePaths = { "vendor/bin", "vendor/barryvdh/laravel-ide-helper" },
+            },
             filetypes = { "php", "blade", "php_only" },
             files = {
               maxSize = 10000000,
               associations = {
                 "*.php",
                 "*.phtml",
-                "*.inc",
-                "*.api",
                 "*.blade.php",
               },
-            },
-            environment = {
-              shortOpenTag = true,
             },
             client = {
               disableInlayHints = false,

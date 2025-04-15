@@ -29,7 +29,14 @@ return {
         ["C-space"] = {},
       },
       cmdline = {
-        keymap = { preset = "super-tab" },
+        keymap = {
+          preset = "super-tab",
+          ["<Tab>"] = { "show", "accept" },
+        },
+        completion = {
+          ghost_text = { enabled = true },
+          menu = { auto_show = true },
+        },
       },
       term = {
         keymap = { preset = "super-tab" },
