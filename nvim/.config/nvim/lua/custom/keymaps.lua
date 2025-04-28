@@ -36,3 +36,6 @@ set("n", "gra", vim.lsp.buf.code_action)
 set("n", "<leader>rn", vim.lsp.buf.rename)
 set({ "n", "v" }, "<leader>y", '"+y')
 set({ "n", "v" }, "<leader>p", '"+p')
+
+set({ "n", "v" }, "<leader>p", '"+p', { noremap = true, desc = "Past from system clipboard" })
+set({ "n", "v" }, "<leader>y", '"+y', { noremap = true, desc = "yank to system clipboard" })

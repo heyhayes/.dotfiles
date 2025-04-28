@@ -15,7 +15,7 @@ y = 5
 
 
 [font]
-size = 16.0
+size = 10.0
 
 [font.normal]
 family = "Hack Nerd Font Mono"
@@ -34,10 +34,10 @@ family = "Hack Nerd Font Mono"
 style="Bold Italic"
 
 [font.offset]
-y = 22
+y = 18
 
 [font.glyph_offset] 
-y = 11
+y = 9
 
 [colors.vi_mode_cursor]
 text = "#94e2d5"

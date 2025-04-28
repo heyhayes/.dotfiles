@@ -221,23 +221,22 @@ export PATH="~/.config/herd-lite/bin:$PATH"
 export PHP_INI_SCAN_DIR="~/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
 
 
-# Herd injected PHP binary.
-export PATH="/Users/davidhayes/Library/Application Support/Herd/bin/":$PATH
-
-
-# Herd injected PHP 8.4 configuration.
-export HERD_PHP_84_INI_SCAN_DIR="/Users/davidhayes/Library/Application Support/Herd/config/php/84/"
-
-
-# Herd injected PHP 8.2 configuration.
-export HERD_PHP_82_INI_SCAN_DIR="/Users/davidhayes/Library/Application Support/Herd/config/php/82/"
-
 export NVM_DIR="$HOME/.nvm"
-[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+if [ "$(uname)" == "Darwin"]; then
+  # Herd injected PHP binary.
+  export PATH="~/Library/Application Support/Herd/bin/":$PATH
+  # Herd injected PHP 8.4 configuration.
+  export HERD_PHP_84_INI_SCAN_DIR="~/Library/Application Support/Herd/config/php/84/"
+  # Herd injected PHP 8.2 configuration.
+  export HERD_PHP_82_INI_SCAN_DIR="~/Library/Application Support/Herd/config/php/82/"
+  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+  export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+else
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+fi
 
-export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
-
+source /usr/share/nvm/init-nvm.sh
 
 nvm_auto_use() {
   local node_version="$(nvm version)"
@@ -258,4 +257,5 @@ nvm_auto_use() {
 }
 add-zsh-hook chpwd nvm_auto_use
 nvm_auto_use
-
+export PATH="$HOME/.phpenv/bin:$PATH"
+eval "$(phpenv init -)"
