@@ -1,8 +1,8 @@
 # If you come from bash you might have to change your $PATH.
 export PATH=:$HOME/.local/bin:$PATH
-export PATH=:$HOME/.config/tmux/plugins/tmuxifier/bin:/opt/homebrew/opt/mysql@8.4/bin/:$HOME/software/emacs30/build/nextstep:$PATH
 export GOPATH=~/go
 export PATH=$PATH:$GOPATH/bin:~/software/lua-language-server/bin:~/software/nvim-macos-arm64/bin/
+export PATH=:$HOME/.config/tmux/plugins/tmuxifier/bin:/opt/homebrew/opt/mysql@8.4/bin/:$HOME/software/emacs30/build/nextstep:$PATH
 export PATH=:$HOME/Library/Application\ Support/Herd/bin/:$PATH
 export PATH=:$HOME/scripts:$PATH
 export TMUXIFIER_LAYOUT_PATH="$HOME/.config/tmux/layouts"
@@ -217,12 +217,11 @@ export TERM=xterm-256color
 bindkey -v
 bindkey '^R' history-incremental-search-backward
 
-export PATH="~/.config/herd-lite/bin:$PATH"
-export PHP_INI_SCAN_DIR="~/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
-
-
 export NVM_DIR="$HOME/.nvm"
-if [ "$(uname)" == "Darwin"]; then
+
+if [ "$(uname)" = "Darwin" ]; then
+  export PATH="~/.config/herd-lite/bin:$PATH"
+  export PHP_INI_SCAN_DIR="~/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
   # Herd injected PHP binary.
   export PATH="~/Library/Application Support/Herd/bin/":$PATH
   # Herd injected PHP 8.4 configuration.
