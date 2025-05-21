@@ -7,12 +7,12 @@ opt.softtabstop = 4
 opt.smartindent = true
 opt.wrap = false
 
-opt.mouse = 'a'
+opt.mouse = "a"
 opt.title = true
 
 opt.list = true
-opt.listchars = { tab = '↦ ', trail = '.' }
-opt.fillchars:append({ eob = ' ' })
+opt.listchars = { tab = "↦ ", trail = "." }
+opt.fillchars:append({ eob = " " })
 
 opt.termguicolors = true
 
@@ -32,9 +32,10 @@ opt.confirm = true
 
 opt.undofile = true
 opt.backup = true
-opt.backupdir:remove('.')
+opt.backupdir:remove(".")
 
 opt.cursorline = true
+opt.laststatus = 3
 
 vim.cmd([[let &t_Cs = "\e[4:3m"]])
 vim.cmd([[let &t_Ce = "\e[4:0m"]])

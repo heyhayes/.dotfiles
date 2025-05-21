@@ -13,7 +13,7 @@ return {
     -- custom strategy for composer
     vim.cmd([[
       function! PestTransform(cmd) abort
-        return join(map(split(a:cmd), ''))
+        return a:cmd
       endfunction
 
       let g:test#custom_transformations = {'pest': function('PestTransform')}
