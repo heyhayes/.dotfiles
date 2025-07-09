@@ -41,6 +41,7 @@ return {
           "stylua",
           "tailwindcss-language-server",
           "ts_ls",
+          "zls",
         },
       },
     },
@@ -129,6 +130,10 @@ return {
           },
         },
       },
+      tailwindcss = {
+        filetypes = { "html", "css", "scss", "javascript", "javascriptreact", "typescript", "typescriptreact" },
+      },
+      zls = {},
     }
 
     require("mason").setup()

@@ -34,7 +34,7 @@ return {
           ["<Tab>"] = { "show", "accept" },
         },
         completion = {
-          ghost_text = { enabled = true },
+          -- ghost_text = { enabled = true },
           menu = { auto_show = true },
         },
       },

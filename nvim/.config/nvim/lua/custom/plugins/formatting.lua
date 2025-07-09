@@ -22,6 +22,7 @@ return {
         php = { "pint", "phpcs" },
         sh = { "shfmt" },
         blade = { "blade-formatter", "rustywind" },
+        zig = { "zigfmt" },
       },
       ---@type table<string, conform.FormatterConfigOverride|fun(bufnr: integer): nil|conform.FormatterConfigOverride>
       formatters = {
