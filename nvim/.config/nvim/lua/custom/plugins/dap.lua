@@ -7,16 +7,9 @@ return {
     },
     cmd = { "DapInstall", "DapUninstall" },
     opts = {
-      -- Makes a best effort to setup the various debuggers with
-      -- reasonable debug configurations
       automatic_setup = true,
-      -- You can provide additional configuration to the handlers,
-      -- see mason-nvim-dap README for more information
       handlers = {
         function(config)
-          -- all sources with no handler get passed here
-
-          -- Keep original functionality
           require("mason-nvim-dap").default_setup(config)
         end,
         php = function(config)
@@ -27,28 +20,42 @@ return {
               name = "Listen for Xdebug",
               port = 9003,
               pathMappings = {
-                -- For some reason xdebug sometimes fails for me, depending on me
-                -- using herd or docker. To get it to work, change the order of the mappings.
-                -- The first mapping should be the one that you are actively using.
-                -- This only started recently, so I don't know what changed.
                 ["${workspaceFolder}"] = "${workspaceFolder}",
                 ["/var/www/html"] = "${workspaceFolder}",
               },
             },
           }
-          require("mason-nvim-dap").default_setup(config) -- don't forget this!
+          require("mason-nvim-dap").default_setup(config)
         end,
       },
-      -- You'll need to check that you have the required things installed
-      -- online, please don't ask me how to install them :)
       ensure_installed = {
-        -- Update this to ensure that you have the debuggers for the langs you want
         "php",
         "bash",
         "python",
+        "delve",
       },
     },
+    config = function()
+      local dap = require("dap")
+
+      -- Debug control
+      vim.keymap.set("n", "dc", dap.continue, { desc = "Debug: Continue" })
+      vim.keymap.set("n", "ds", dap.step_over, { desc = "Debug: Step Over" })
+      vim.keymap.set("n", "di", dap.step_into, { desc = "Debug: Step Into" })
+      vim.keymap.set("n", "do", dap.step_out, { desc = "Debug: Step Out" })
+
+      -- Breakpoints
+      vim.keymap.set("n", "db", dap.toggle_breakpoint, { desc = "Debug: Toggle Breakpoint" })
+      vim.keymap.set("n", "dB", function()
+        dap.set_breakpoint(vim.fn.input("Breakpoint condition: "))
+      end, { desc = "Debug: Conditional Breakpoint" })
+
+      -- Debug session management
+      vim.keymap.set("n", "dr", dap.repl.open, { desc = "Debug: Open REPL" })
+      vim.keymap.set("n", "dt", dap.terminate, { desc = "Debug: Terminate" })
+    end,
   },
+
   {
     "leoluz/nvim-dap-go",
     dependencies = {
@@ -56,7 +63,54 @@ return {
       "nvim-neotest/nvim-nio",
     },
     config = function()
+      local dap = require("dap")
+      local dapui = require("dapui")
+
       require("dap-go").setup()
+
+      vim.keymap.set("n", "dgt", function()
+        dapui.open()
+        require("dap-go").debug_test()
+      end, { desc = "Debug: Go Test" })
+
+      vim.keymap.set("n", "dgl", function()
+        dapui.open()
+        require("dap-go").debug_last_test()
+      end, { desc = "Debug: Go Last Test" })
+    end,
+  },
+  {
+    "rcarriga/nvim-dap-ui",
+    dependencies = { "mfussenegger/nvim-dap" },
+    config = function()
+      local dap = require("dap")
+      local dapui = require("dapui")
+
+      dapui.setup()
+
+      dap.listeners.before.attach.dapui_config = function()
+        dapui.open()
+      end
+      dap.listeners.before.launch.dapui_config = function()
+        dapui.open()
+      end
+      dap.listeners.before.event_terminated.dapui_config = function()
+        dapui.close()
+      end
+      dap.listeners.before.event_exited.dapui_config = function()
+        dapui.close()
+      end
+
+      -- Optional keymaps
+      vim.keymap.set("n", "<leader>du", dapui.toggle, { desc = "Debug: Toggle UI" })
+      vim.keymap.set("n", "<leader>de", dapui.eval, { desc = "Debug: Eval Expression" })
+    end,
+  },
+  {
+    "theHamsta/nvim-dap-virtual-text",
+    dependencies = { "mfussenegger/nvim-dap" },
+    config = function()
+      require("nvim-dap-virtual-text").setup()
     end,
   },
 }

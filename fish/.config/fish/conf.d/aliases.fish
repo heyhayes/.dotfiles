@@ -1,0 +1,43 @@
+# Aliases / Abbreviations
+abbr v "nvim"
+abbr vim "nvim"
+
+abbr gc "git commit -m"
+abbr gca "git commit -a -m"
+abbr gp "git push origin HEAD"
+abbr gpu "git pull origin"
+abbr gst "git status"
+abbr glog "git log --graph --topo-order --pretty='%w(100,0,6)%C(yellow)%h%C(bold)%C(black)%d %C(cyan)%ar %C(green)%an%n%C(bold)%C(white)%s %N' --abbrev-commit"
+abbr gdiff "git diff"
+abbr gco "git checkout"
+abbr gb "git branch"
+abbr gba "git branch -a"
+abbr gadd "git add"
+abbr ga "git add -p"
+abbr gcoall "git checkout -- ."
+abbr gr "git remote"
+abbr gre "git reset"
+abbr lg "lazygit"
+abbr gm "git merge"
+
+abbr dco "docker compose"
+abbr dps "docker ps"
+abbr dpa "docker ps -a"
+abbr dl "docker ps -l -q"
+abbr dx "docker exec -it"
+
+abbr .. "z .."
+abbr ... "z ../.."
+abbr .... "z ../../.."
+abbr ..... "z ../../../.."
+abbr ...... "z ../../../../.."
+
+abbr la "tree"
+abbr cat "bat"
+abbr cl "clear"
+abbr http "xh"
+abbr rr "ranger"
+
+abbr l "eza -l --icons --git -a"
+abbr lt "eza --tree --level=2 --long --icons --git"
+
