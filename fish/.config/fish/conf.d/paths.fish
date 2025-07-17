@@ -1,4 +1,6 @@
-set -x PATH $HOME/.local/bin $PATH
+# Clean PATH - remove any bash nvm paths
+set --erase PATH
+set -x PATH $HOME/.local/bin /usr/local/sbin /usr/local/bin /usr/bin /usr/bin/site_perl /usr/bin/vendor_perl /usr/bin/core_perl
 set -x GOPATH $HOME/go
 
 # Platform-specific paths
