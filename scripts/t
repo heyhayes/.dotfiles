@@ -5,7 +5,15 @@
 if [[ $# -eq 1 ]]; then
     selected=$1
 else
-    items=`find ~/Development -maxdepth 2 -mindepth 1 -type d`
+    # Check for Development directory (macOS) or development directory (Linux)
+    if [ -d "$HOME/Development" ]; then
+        dev_dir="$HOME/Development"
+    elif [ -d "$HOME/development" ]; then
+        dev_dir="$HOME/development"
+    else
+        dev_dir="$HOME"
+    fi
+    items=`find "$dev_dir" -maxdepth 2 -mindepth 1 -type d`
     items+=`echo -e "\n/tmp"`
     selected=`echo "$items" | fzf`
 fi

@@ -1,15 +1,35 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=:$HOME/.local/bin:$PATH
-export GOPATH=~/go
-export PATH=$PATH:$GOPATH/bin:~/software/lua-language-server/bin:~/software/nvim-macos-arm64/bin/
-export PATH=:$HOME/.config/tmux/plugins/tmuxifier/bin:/opt/homebrew/opt/mysql@8.4/bin/:$HOME/software/emacs30/build/nextstep:$PATH
-export PATH=:$HOME/Library/Application\ Support/Herd/bin/:$PATH
-export PATH=:$HOME/scripts:$PATH
+export PATH="$HOME/.local/bin:$PATH"
+export GOPATH="$HOME/go"
+
+# Platform-specific paths
+if [[ "$(uname)" == "Darwin" ]]; then
+    # macOS paths
+    export PATH="$HOME/Library/Application Support/Herd/bin:$PATH"
+    export PATH="$PATH:/opt/homebrew/bin"
+    export PATH="$PATH:/opt/homebrew/opt/mysql@8.4/bin"
+    export PATH="$PATH:$HOME/software/nvim-macos-arm64/bin"
+    export PATH="$PATH:$HOME/software/emacs30/build/nextstep"
+else
+    # Linux paths
+    export PATH="$PATH:/usr/local/bin"
+    export PATH="$PATH:$HOME/software/nvim-linux64/bin"
+    export PATH="$PATH:$HOME/software/emacs/bin"
+fi
+
+# Common paths for both platforms
+export PATH="$PATH:$GOPATH/bin:$HOME/software/lua-language-server/bin:$HOME/.config/tmux/plugins/tmuxifier/bin:$HOME/scripts"
 export TMUXIFIER_LAYOUT_PATH="$HOME/.config/tmux/layouts"
-# eval "$(tmuxifier init -)"
+
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
-export EDITOR=/opt/homebrew/bin/nvim
+
+# Set editor based on what's available
+if command -v nvim >/dev/null; then
+    export EDITOR="$(command -v nvim)"
+else
+    export EDITOR="vim"
+fi
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -235,7 +255,8 @@ else
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 fi
 
-source /usr/share/nvm/init-nvm.sh
+# Only source if the file exists (Linux systems)
+[ -f "/usr/share/nvm/init-nvm.sh" ] && source /usr/share/nvm/init-nvm.sh
 
 nvm_auto_use() {
   local node_version="$(nvm version)"
@@ -258,3 +279,24 @@ add-zsh-hook chpwd nvm_auto_use
 nvm_auto_use
 export PATH="$HOME/.phpenv/bin:$PATH"
 eval "$(phpenv init -)"
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/davidhayes/.lmstudio/bin"
+# End of LM Studio CLI section
+
+
+
+# Herd injected PHP 8.4 configuration.
+export HERD_PHP_84_INI_SCAN_DIR="/Users/davidhayes/Library/Application Support/Herd/config/php/84/"
+
+
+# Herd injected PHP 8.2 configuration.
+export HERD_PHP_82_INI_SCAN_DIR="/Users/davidhayes/Library/Application Support/Herd/config/php/82/"
+
+
+# Herd injected PHP 8.1 configuration.
+export HERD_PHP_81_INI_SCAN_DIR="/Users/davidhayes/Library/Application Support/Herd/config/php/81/"
+
+
+# Herd injected PHP 7.4 configuration.
+export HERD_PHP_74_INI_SCAN_DIR="/Users/davidhayes/Library/Application Support/Herd/config/php/74/"
